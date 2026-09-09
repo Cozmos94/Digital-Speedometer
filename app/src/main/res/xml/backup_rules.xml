@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- No sensitive data to exclude; preferences (units/colours/mirror) are fine to back up. -->
+</full-backup-content>

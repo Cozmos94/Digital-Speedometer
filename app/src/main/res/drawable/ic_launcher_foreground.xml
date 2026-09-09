@@ -1,0 +1,30 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Dial rim -->
+    <path
+        android:pathData="M54,24 A30,30 0 1 1 53.9,24"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="4"
+        android:fillColor="#00000000" />
+
+    <!-- Needle -->
+    <path
+        android:pathData="M54,54 L74,38"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="5"
+        android:strokeLineCap="round" />
+
+    <!-- Centre pivot -->
+    <path
+        android:pathData="M54,54 m-5,0 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0"
+        android:fillColor="#FFFFFFFF" />
+
+    <!-- Tick marks -->
+    <path android:pathData="M54,24 L54,30" android:strokeColor="#FFFFFFFF" android:strokeWidth="3" />
+    <path android:pathData="M24,54 L30,54" android:strokeColor="#FFFFFFFF" android:strokeWidth="3" />
+    <path android:pathData="M84,54 L78,54" android:strokeColor="#FFFFFFFF" android:strokeWidth="3" />
+</vector>
