@@ -1,6 +1,8 @@
 package com.digitalspeedometer.app.ui
 
 import android.Manifest
+import android.app.Activity
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import com.digitalspeedometer.app.ads.InterstitialAdManager
 import com.digitalspeedometer.app.data.PreferencesManager
 import com.digitalspeedometer.app.location.hasLocationPermission
 import com.digitalspeedometer.app.location.rememberSpeedMetersPerSecond
@@ -62,6 +65,25 @@ fun SpeedometerScreen(prefs: PreferencesManager, onBack: () -> Unit) {
             permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
+
+    LaunchedEffect(Unit) {
+        // Start loading an interstitial now so one is likely ready by the time the user leaves.
+        InterstitialAdManager.preload(context)
+    }
+
+    // Every 3rd exit (system back gesture/button OR the on-screen back button below) shows an
+    // interstitial ad first; the other exits leave immediately, same as always.
+    fun exit() {
+        val activity = context as? Activity
+        val shouldShowAd = prefs.registerSpeedometerExitAndShouldShowAd()
+        if (activity != null && shouldShowAd) {
+            InterstitialAdManager.showIfAvailable(activity, onComplete = onBack)
+        } else {
+            onBack()
+        }
+    }
+
+    BackHandler(onBack = ::exit)
 
     var mirrored by remember { mutableStateOf(prefs.isMirrored) }
     var unit by remember { mutableStateOf(prefs.speedUnit) }
@@ -106,7 +128,7 @@ fun SpeedometerScreen(prefs: PreferencesManager, onBack: () -> Unit) {
         }
 
         FilledIconButton(
-            onClick = onBack,
+            onClick = ::exit,
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .padding(16.dp),

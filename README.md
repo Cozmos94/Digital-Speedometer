@@ -16,7 +16,10 @@ mounted on your dashboard and read via its reflection in the windshield.
 - Settings (mirror state, units, colours) persist between launches.
 - **Two screens:**
   1. **Home** — banner ads top and bottom, single "Start Speedometer" button.
-  2. **Speedometer** — full-screen, completely ad-free.
+  2. **Speedometer** — full-screen, ad-free while actually viewing speed. Every
+     3rd time you leave it (back button or system back), a full-screen
+     interstitial ad shows first — not every time, to keep it from feeling
+     spammy on a screen that's meant to stay out of your way while driving.
 
 ## Tech stack
 
@@ -51,12 +54,17 @@ for **release** builds:
   `buildType = "release"`) use the real IDs and earn real revenue.
 
 This is controlled by `manifestPlaceholders["admobAppId"]` per build type in
-[`app/build.gradle.kts`](app/build.gradle.kts) (App ID) and
+[`app/build.gradle.kts`](app/build.gradle.kts) (App ID),
 `DEFAULT_BANNER_AD_UNIT_ID` in
 [`BannerAd.kt`](app/src/main/java/com/digitalspeedometer/app/ads/BannerAd.kt)
-(ad unit ID, switches on `BuildConfig.DEBUG`). If you ever change ad units or
-create new ones (e.g. an interstitial), update the `REAL_...` constants
-there — never test by tapping a release build's ads.
+(banner ad unit, switches on `BuildConfig.DEBUG`), and the equivalent in
+[`InterstitialAdManager.kt`](app/src/main/java/com/digitalspeedometer/app/ads/InterstitialAdManager.kt)
+(interstitial ad unit — shown every 3rd exit from the Speedometer screen).
+Never test by tapping a release build's ads.
+
+**`REAL_INTERSTITIAL_AD_UNIT_ID` still needs a real value** — it currently
+falls back to the test ID even in release. Create one in AdMob (your app →
+Ad units → Add ad unit → **Interstitial**) and paste the resulting ID in.
 
 ## Privacy policy
 

@@ -38,14 +38,29 @@ class PreferencesManager(context: Context) {
         get() = Color(prefs.getInt(KEY_BACKGROUND_COLOR, DEFAULT_BACKGROUND_COLOR))
         set(value) = prefs.edit().putInt(KEY_BACKGROUND_COLOR, value.toArgbInt()).apply()
 
+    /**
+     * Call once each time the user leaves the Speedometer screen. Returns true every
+     * [INTERSTITIAL_FREQUENCY_CAP]th call — the signal to show an interstitial ad this time.
+     * Persisted, so the count (and cadence) survives app restarts.
+     */
+    fun registerSpeedometerExitAndShouldShowAd(): Boolean {
+        val newCount = prefs.getInt(KEY_EXIT_COUNT, 0) + 1
+        prefs.edit().putInt(KEY_EXIT_COUNT, newCount).apply()
+        return newCount % INTERSTITIAL_FREQUENCY_CAP == 0
+    }
+
     companion object {
         private const val PREFS_NAME = "digital_speedometer_prefs"
         private const val KEY_MIRRORED = "mirrored"
         private const val KEY_UNIT = "unit"
         private const val KEY_NUMBER_COLOR = "number_color"
         private const val KEY_BACKGROUND_COLOR = "background_color"
+        private const val KEY_EXIT_COUNT = "speedometer_exit_count"
 
         private const val DEFAULT_NUMBER_COLOR = 0xFF00E676.toInt() // bright green, reads well reflected
         private const val DEFAULT_BACKGROUND_COLOR = 0xFF000000.toInt() // black
+
+        /** Show an interstitial ad on every 3rd exit from the Speedometer screen, not every time. */
+        private const val INTERSTITIAL_FREQUENCY_CAP = 3
     }
 }
