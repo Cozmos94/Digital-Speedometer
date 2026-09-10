@@ -111,7 +111,7 @@ fun SpeedometerScreen(prefs: PreferencesManager, onBack: () -> Unit) {
                 .align(Alignment.TopStart)
                 .padding(16.dp),
             colors = IconButtonDefaults.filledIconButtonColors(
-                containerColor = Color(0x33FFFFFF),
+                containerColor = Color(0x66000000),
                 contentColor = Color.White,
             ),
         ) {
@@ -127,7 +127,7 @@ fun SpeedometerScreen(prefs: PreferencesManager, onBack: () -> Unit) {
                 .align(Alignment.TopEnd)
                 .padding(16.dp),
             colors = IconButtonDefaults.filledIconButtonColors(
-                containerColor = Color(0x33FFFFFF),
+                containerColor = Color(0x66000000),
                 contentColor = Color.White,
             ),
         ) {
@@ -148,7 +148,7 @@ fun SpeedometerScreen(prefs: PreferencesManager, onBack: () -> Unit) {
                     prefs.speedUnit = unit
                 },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0x33FFFFFF),
+                    containerColor = Color(0x66000000),
                     contentColor = Color.White,
                 ),
             ) {
@@ -159,7 +159,7 @@ fun SpeedometerScreen(prefs: PreferencesManager, onBack: () -> Unit) {
             FilledIconButton(
                 onClick = { showColorDialog = true },
                 colors = IconButtonDefaults.filledIconButtonColors(
-                    containerColor = Color(0x33FFFFFF),
+                    containerColor = Color(0x66000000),
                     contentColor = Color.White,
                 ),
             ) {
