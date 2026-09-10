@@ -1,12 +1,12 @@
 package com.digitalspeedometer.app.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -23,6 +24,9 @@ import com.digitalspeedometer.app.R
 import com.digitalspeedometer.app.ads.BannerAd
 import com.digitalspeedometer.app.ui.theme.SpeedoAccent
 
+private val TitleFontSize = 34.sp
+private val StartButtonColor = Color(0xFFFF1744) // vivid red, matches the title's green glow treatment
+
 // "DS-Digital" — check its licence permits this app's (ad-monetized) commercial use
 // before publishing; swap for a clearly-commercial-licensed font if not.
 private val DigitalFontFamily = FontFamily(Font(R.font.ds_digi))
@@ -30,7 +34,9 @@ private val DigitalFontFamily = FontFamily(Font(R.font.ds_digi))
 /**
  * Landing screen: an ad banner top and bottom (this is the only screen with
  * ads — the Speedometer screen stays ad-free so it isn't distracting while
- * mounted on a windshield) and a single "Start Speedometer" button.
+ * mounted on a windshield) and a tappable glowing "START" — not a Material
+ * button, just clickable text sized twice the title, to fit the digital-clock
+ * look.
  */
 @Composable
 fun HomeScreen(onStartClick: () -> Unit) {
@@ -53,7 +59,7 @@ fun HomeScreen(onStartClick: () -> Unit) {
                     text = "Digital Speedometer",
                     style = TextStyle(
                         fontFamily = DigitalFontFamily,
-                        fontSize = 34.sp,
+                        fontSize = TitleFontSize,
                         letterSpacing = 3.sp,
                         color = SpeedoAccent,
                         shadow = Shadow(
@@ -63,12 +69,27 @@ fun HomeScreen(onStartClick: () -> Unit) {
                         ),
                     ),
                 )
-                Button(
-                    onClick = onStartClick,
-                    modifier = Modifier.padding(top = 32.dp),
-                ) {
-                    Text("Start Speedometer")
-                }
+                Text(
+                    text = "START",
+                    modifier = Modifier
+                        .padding(top = 40.dp)
+                        .clickable(
+                            onClickLabel = "Start Speedometer",
+                            role = Role.Button,
+                            onClick = onStartClick,
+                        ),
+                    style = TextStyle(
+                        fontFamily = DigitalFontFamily,
+                        fontSize = TitleFontSize * 2,
+                        letterSpacing = 4.sp,
+                        color = StartButtonColor,
+                        shadow = Shadow(
+                            color = StartButtonColor.copy(alpha = 0.95f),
+                            offset = Offset.Zero,
+                            blurRadius = 48f,
+                        ),
+                    ),
+                )
             }
         }
 
