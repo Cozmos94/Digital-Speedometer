@@ -3,6 +3,7 @@ package com.digitalspeedometer.app.data
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.compose.ui.graphics.Color
+import com.digitalspeedometer.app.util.toArgbInt
 
 /** Speed unit the user wants the readout displayed in. */
 enum class SpeedUnit(val label: String, val metersPerSecondToUnit: (Float) -> Float) {
@@ -36,14 +37,6 @@ class PreferencesManager(context: Context) {
     var backgroundColor: Color
         get() = Color(prefs.getInt(KEY_BACKGROUND_COLOR, DEFAULT_BACKGROUND_COLOR))
         set(value) = prefs.edit().putInt(KEY_BACKGROUND_COLOR, value.toArgbInt()).apply()
-
-    private fun Color.toArgbInt(): Int {
-        val a = (alpha * 255f).toInt() and 0xFF
-        val r = (red * 255f).toInt() and 0xFF
-        val g = (green * 255f).toInt() and 0xFF
-        val b = (blue * 255f).toInt() and 0xFF
-        return (a shl 24) or (r shl 16) or (g shl 8) or b
-    }
 
     companion object {
         private const val PREFS_NAME = "digital_speedometer_prefs"

@@ -152,7 +152,8 @@ fun SpeedometerScreen(prefs: PreferencesManager, onBack: () -> Unit) {
                     contentColor = Color.White,
                 ),
             ) {
-                Text(unit.label)
+                // Shows the unit you'd switch TO, not the current one.
+                Text(unit.toggled().label)
             }
 
             FilledIconButton(
