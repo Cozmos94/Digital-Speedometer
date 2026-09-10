@@ -58,15 +58,23 @@ This is controlled by `manifestPlaceholders["admobAppId"]` per build type in
 create new ones (e.g. an interstitial), update the `REAL_...` constants
 there — never test by tapping a release build's ads.
 
+## Privacy policy
+
+Live at **[docs/privacy-policy.html](docs/privacy-policy.html)** — once you
+enable GitHub Pages for this repo (**Settings → Pages → Source: Deploy from
+a branch → Branch: `main`, folder: `/docs`**, then Save), it'll be reachable
+at a stable public URL to paste into the Play Console's "Privacy policy"
+field during listing setup. Support/contact address used throughout:
+`thedigitalspeedometerapp@gmail.com`.
+
 ## Before publishing to Google Play
 
 1. Replace the placeholder launcher icon
    ([`ic_launcher_foreground.xml`](app/src/main/res/drawable/ic_launcher_foreground.xml))
    with real artwork — easiest via Android Studio's
    **Right-click `res` → New → Image Asset**.
-2. Fill in a real Play Store listing (screenshots, privacy policy — required
-   since the app requests location permission and shows ads/uses an
-   advertising ID).
+2. Enable GitHub Pages (see above) and add the resulting privacy policy URL,
+   plus screenshots and the rest of the store listing, in Play Console.
 3. Build a signed release build (Build → Generate Signed Bundle/APK) — that's
    the build that will actually serve real ads and earn revenue.
 
