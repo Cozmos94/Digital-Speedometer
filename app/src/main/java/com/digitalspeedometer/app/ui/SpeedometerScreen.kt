@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.FlipCameraAndroid
@@ -20,6 +19,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -54,10 +54,13 @@ fun SpeedometerScreen(prefs: PreferencesManager, onBack: () -> Unit) {
         ActivityResultContracts.RequestPermission()
     ) { granted -> hasPermission = granted }
 
-    val locationLaunchedOnce = remember { mutableStateOf(false) }
-    if (!hasPermission && !locationLaunchedOnce.value) {
-        locationLaunchedOnce.value = true
-        permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+    LaunchedEffect(Unit) {
+        // Runs once, after the launcher above has actually been registered — calling
+        // launch() directly in the composable body instead would crash with
+        // "Attempting to launch an unregistered ActivityResultLauncher" on first entry.
+        if (!hasPermission) {
+            permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
     }
 
     var mirrored by remember { mutableStateOf(prefs.isMirrored) }
