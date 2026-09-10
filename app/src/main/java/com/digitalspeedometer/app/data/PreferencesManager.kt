@@ -38,6 +38,11 @@ class PreferencesManager(context: Context) {
         get() = Color(prefs.getInt(KEY_BACKGROUND_COLOR, DEFAULT_BACKGROUND_COLOR))
         set(value) = prefs.edit().putInt(KEY_BACKGROUND_COLOR, value.toArgbInt()).apply()
 
+    /** True once the user has tapped through the accuracy disclaimer at least once. */
+    var hasAcknowledgedDisclaimer: Boolean
+        get() = prefs.getBoolean(KEY_DISCLAIMER_ACK, false)
+        set(value) = prefs.edit().putBoolean(KEY_DISCLAIMER_ACK, value).apply()
+
     /**
      * Call once each time the user leaves the Speedometer screen. Returns true every
      * [INTERSTITIAL_FREQUENCY_CAP]th call — the signal to show an interstitial ad this time.
@@ -56,6 +61,7 @@ class PreferencesManager(context: Context) {
         private const val KEY_NUMBER_COLOR = "number_color"
         private const val KEY_BACKGROUND_COLOR = "background_color"
         private const val KEY_EXIT_COUNT = "speedometer_exit_count"
+        private const val KEY_DISCLAIMER_ACK = "disclaimer_acknowledged"
 
         private const val DEFAULT_NUMBER_COLOR = 0xFF00E676.toInt() // bright green, reads well reflected
         private const val DEFAULT_BACKGROUND_COLOR = 0xFF000000.toInt() // black

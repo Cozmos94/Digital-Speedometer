@@ -36,7 +36,7 @@ private fun DigitalSpeedometerNavHost(prefs: PreferencesManager) {
 
     NavHost(navController = navController, startDestination = ROUTE_HOME) {
         composable(ROUTE_HOME) {
-            HomeScreen(onStartClick = { navController.navigate(ROUTE_SPEEDOMETER) })
+            HomeScreen(prefs = prefs, onStartClick = { navController.navigate(ROUTE_SPEEDOMETER) })
         }
         composable(ROUTE_SPEEDOMETER) {
             SpeedometerScreen(prefs = prefs, onBack = { navController.popBackStack() })

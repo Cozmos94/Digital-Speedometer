@@ -3,6 +3,15 @@
 An Android app that turns your phone into a digital speedometer, designed to be
 mounted on your dashboard and read via its reflection in the windshield.
 
+> **Disclaimer:** GPS-based speed readings can be delayed, temporarily
+> inaccurate, or briefly unavailable, and may not exactly match a vehicle's
+> built-in speedometer. This app is for general reference only — don't rely
+> on it solely, and always defer to your vehicle's own speedometer for
+> speed-limit compliance. (Note: this README is only seen by people browsing
+> the source on GitHub — the version that actually matters legally is the
+> in-app disclaimer dialog shown before first use, plus the same wording in
+> [the privacy policy](docs/privacy-policy.html) and the Play Store listing.)
+
 ## Features
 
 - **Mirrored by default** — the readout is flipped so its windshield reflection
@@ -62,9 +71,10 @@ This is controlled by `manifestPlaceholders["admobAppId"]` per build type in
 (interstitial ad unit — shown every 3rd exit from the Speedometer screen).
 Never test by tapping a release build's ads.
 
-## Privacy policy
+## Privacy policy & disclaimer
 
-Live at **[docs/privacy-policy.html](docs/privacy-policy.html)** — once you
+Live at **[docs/privacy-policy.html](docs/privacy-policy.html)** (covers both
+data handling and the accuracy disclaimer) — once you
 enable GitHub Pages for this repo (**Settings → Pages → Source: Deploy from
 a branch → Branch: `main`, folder: `/docs`**, then Save), it'll be reachable
 at a stable public URL to paste into the Play Console's "Privacy policy"

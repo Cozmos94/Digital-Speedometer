@@ -9,6 +9,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -22,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.digitalspeedometer.app.R
 import com.digitalspeedometer.app.ads.BannerAd
+import com.digitalspeedometer.app.data.PreferencesManager
 import com.digitalspeedometer.app.ui.theme.SpeedoAccent
 
 private val TitleFontSize = 34.sp
@@ -39,7 +44,9 @@ private val DigitalFontFamily = FontFamily(Font(R.font.ds_digi))
  * look.
  */
 @Composable
-fun HomeScreen(onStartClick: () -> Unit) {
+fun HomeScreen(prefs: PreferencesManager, onStartClick: () -> Unit) {
+    var showDisclaimer by remember { mutableStateOf(!prefs.hasAcknowledgedDisclaimer) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -94,5 +101,14 @@ fun HomeScreen(onStartClick: () -> Unit) {
         }
 
         BannerAd()
+    }
+
+    if (showDisclaimer) {
+        DisclaimerDialog(
+            onAcknowledge = {
+                prefs.hasAcknowledgedDisclaimer = true
+                showDisclaimer = false
+            },
+        )
     }
 }
