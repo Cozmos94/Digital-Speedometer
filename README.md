@@ -38,28 +38,37 @@ Then **Run ▶** on a device or emulator as normal.
 > on a physical device, or use the emulator's Extended Controls → Location tab
 > to simulate a moving route.
 
+## AdMob: real ads vs test ads
+
+The real AdMob App ID and banner ad unit ID are already wired in, but only
+for **release** builds:
+
+- **Debug builds** (what Android Studio's Run ▶ button gives you) always use
+  Google's official test IDs — real, clearly-labelled test ads, zero risk of
+  your own testing taps getting flagged as invalid traffic on the real
+  account.
+- **Release builds** (Build → Generate Signed Bundle/APK, or any build with
+  `buildType = "release"`) use the real IDs and earn real revenue.
+
+This is controlled by `manifestPlaceholders["admobAppId"]` per build type in
+[`app/build.gradle.kts`](app/build.gradle.kts) (App ID) and
+`DEFAULT_BANNER_AD_UNIT_ID` in
+[`BannerAd.kt`](app/src/main/java/com/digitalspeedometer/app/ads/BannerAd.kt)
+(ad unit ID, switches on `BuildConfig.DEBUG`). If you ever change ad units or
+create new ones (e.g. an interstitial), update the `REAL_...` constants
+there — never test by tapping a release build's ads.
+
 ## Before publishing to Google Play
 
-Right now the app uses **Google's official test AdMob IDs** (app ID and
-banner ad unit ID), so it builds and shows clearly-labelled test ads
-immediately with zero setup. Swap these out before you publish, or you won't
-earn anything and may risk your AdMob account for invalid-traffic policy
-reasons if real users see "test ad" banners:
-
-1. Create an AdMob account and register the app to get a **real AdMob App ID**.
-   Replace the value in [`app/src/main/AndroidManifest.xml`](app/src/main/AndroidManifest.xml)
-   (the `com.google.android.gms.ads.APPLICATION_ID` meta-data).
-2. Create a **real banner ad unit** and replace `TEST_BANNER_AD_UNIT_ID` in
-   [`app/src/main/java/com/digitalspeedometer/app/ads/BannerAd.kt`](app/src/main/java/com/digitalspeedometer/app/ads/BannerAd.kt)
-   with it (or pass your real ad unit ID into `BannerAd(adUnitId = ...)` at
-   each call site in `HomeScreen.kt`).
-3. Replace the placeholder launcher icon
+1. Replace the placeholder launcher icon
    ([`ic_launcher_foreground.xml`](app/src/main/res/drawable/ic_launcher_foreground.xml))
    with real artwork — easiest via Android Studio's
    **Right-click `res` → New → Image Asset**.
-4. Fill in a real Play Store listing (screenshots, privacy policy — required
+2. Fill in a real Play Store listing (screenshots, privacy policy — required
    since the app requests location permission and shows ads/uses an
    advertising ID).
+3. Build a signed release build (Build → Generate Signed Bundle/APK) — that's
+   the build that will actually serve real ads and earn revenue.
 
 ## Permissions
 

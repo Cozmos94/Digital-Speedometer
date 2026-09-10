@@ -27,11 +27,11 @@
             </intent-filter>
         </activity>
 
-        <!-- Google's official test AdMob App ID. Replace with your real AdMob App ID
-             before publishing (see README.md). -->
+        <!-- Real value comes from a per-build-type manifestPlaceholder (app/build.gradle.kts):
+             Google's test AdMob App ID for debug builds, the real one for release. -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="${admobAppId}" />
 
     </application>
 
