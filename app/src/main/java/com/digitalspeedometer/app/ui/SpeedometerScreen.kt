@@ -31,7 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -40,6 +39,7 @@ import com.digitalspeedometer.app.ads.InterstitialAdManager
 import com.digitalspeedometer.app.data.PreferencesManager
 import com.digitalspeedometer.app.location.hasLocationPermission
 import com.digitalspeedometer.app.location.rememberSpeedMetersPerSecond
+import com.digitalspeedometer.app.ui.theme.DigitalBoldFontFamily
 import kotlin.math.roundToInt
 
 /**
@@ -108,14 +108,16 @@ fun SpeedometerScreen(prefs: PreferencesManager, onBack: () -> Unit) {
             Text(
                 text = displaySpeed.toString(),
                 color = numberColor,
+                fontFamily = DigitalBoldFontFamily,
                 fontSize = 140.sp,
-                fontWeight = FontWeight.Bold,
+                letterSpacing = 4.sp,
             )
             Text(
                 text = unit.label,
                 color = numberColor,
+                fontFamily = DigitalBoldFontFamily,
                 fontSize = 32.sp,
-                fontWeight = FontWeight.Medium,
+                letterSpacing = 3.sp,
             )
             if (!hasPermission) {
                 Text(

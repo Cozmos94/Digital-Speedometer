@@ -20,21 +20,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.digitalspeedometer.app.R
 import com.digitalspeedometer.app.ads.BannerAd
 import com.digitalspeedometer.app.data.PreferencesManager
+import com.digitalspeedometer.app.ui.theme.DigitalFontFamily
 import com.digitalspeedometer.app.ui.theme.SpeedoAccent
 
 private val TitleFontSize = 34.sp
 private val StartButtonColor = Color(0xFFFF1744) // vivid red, matches the title's green glow treatment
-
-// "DS-Digital" — check its licence permits this app's (ad-monetized) commercial use
-// before publishing; swap for a clearly-commercial-licensed font if not.
-private val DigitalFontFamily = FontFamily(Font(R.font.ds_digi))
 
 /**
  * Landing screen: an ad banner top and bottom (this is the only screen with
