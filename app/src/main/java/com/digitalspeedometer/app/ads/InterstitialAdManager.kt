@@ -14,12 +14,8 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 /** Google's official test interstitial ad unit ID. Always serves a clearly-labelled test ad. */
 const val TEST_INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712"
 
-/**
- * Real interstitial ad unit ID — create one in AdMob (your app → Ad units → Add ad unit →
- * Interstitial) and paste it here. Deliberately left equal to the test ID for now so a release
- * build still works (just with test ads) if this hasn't been set yet.
- */
-const val REAL_INTERSTITIAL_AD_UNIT_ID = TEST_INTERSTITIAL_AD_UNIT_ID
+/** Real interstitial ad unit — only actually served in release builds, see [interstitialAdUnitId]. */
+const val REAL_INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-6794927175129725/1753555006"
 
 private val interstitialAdUnitId: String
     get() = if (BuildConfig.DEBUG) TEST_INTERSTITIAL_AD_UNIT_ID else REAL_INTERSTITIAL_AD_UNIT_ID

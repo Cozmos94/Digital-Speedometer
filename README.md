@@ -62,10 +62,6 @@ This is controlled by `manifestPlaceholders["admobAppId"]` per build type in
 (interstitial ad unit — shown every 3rd exit from the Speedometer screen).
 Never test by tapping a release build's ads.
 
-**`REAL_INTERSTITIAL_AD_UNIT_ID` still needs a real value** — it currently
-falls back to the test ID even in release. Create one in AdMob (your app →
-Ad units → Add ad unit → **Interstitial**) and paste the resulting ID in.
-
 ## Privacy policy
 
 Live at **[docs/privacy-policy.html](docs/privacy-policy.html)** — once you
